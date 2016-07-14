@@ -1,22 +1,24 @@
 Rep Tester
 ==========
-This tool is intended as simple <b>Reps</b> tester. It connects to the backend
-runnning in <i>this</i> browser. It attaches to the first tab running in this
-browser so, make sure this page is <i>not</i> the first tab otherwise it
+This tool is intended as simple <b>Reps</b> tester. It connects to the back-end
+running in <i>the</i> browser and attaches to the first tab. At this moment,
+you need to make sure this page is <i>not</i> the first tab otherwise it
 would attach to itself and cause the browser to freeze. This is known limitation
-and it'll be fixed later.
+and will be fixed later.
 
 The common scenario is:
-1. Launch Firefox and open this tool twice in two tabs
-2. Select the second tab and connect to the first one
+1. Launch Firefox and open this tool twice in two tabs.
+2. Select the second tab and connect (to the first one).
 
 
 Source Directory Structure
 --------------------------
-Since this app loads sources directly from Firefox repo, paths
-must be properly inline.
+Since this app loads source modules directly from Firefox source directory,
+paths must be properly set.
 
-Here is how it works in this particular scenario:
+Here is the default supported directory structure.
+(if you use the same directory alignment you don't need to setup anything)
+
 
 ```
 <root>
@@ -25,22 +27,33 @@ Here is how it works in this particular scenario:
       + devtools
   - github.com
     - janodvarko
-      - prototypes
-        + reps
+      + rep-tester
 ```
 
 * `devtools` Root directory for Firefox built-in devtools
-* `reps` Root directory for this prototype
+* `rep-tester` Root directory for this tool
 
 Webpack config is using the following alias (see `webpack.config` file):
 
-`devtools" => "../../../../mozilla.org/fx-team/devtools`
+`devtools" => config.firefoxSrc + "/devtools"`
 
-This allows requiring devtools modules as follows:
+This allows requiring devtools modules (directly from Firefox source dir) as follows:
 
-`require("devtools/client/shared/components/tabs/sidebar");`
+`require("devtools/client/shared/components/reps/grip");`
 
-See also [sidebar.html](https://github.com/janodvarko/prototypes/blob/master/sidebar.html/README.md)
+Setup
+-----
+
+All you need to do is set `firefoxSrc` in `config.js` to point to your
+Firefox source directory.
+
+The default is:
+
+```
+module.exports = {
+  firefoxSrc: "../../../mozilla.org/fx-team"
+};
+```
 
 Run
 ---
@@ -48,3 +61,11 @@ Run
 2. `webpack`
 3. Load `index.html` in Firefox
 4. Follow instructions on the page
+
+Comments
+--------
+A few more notes about the config:
+
+* React modules are included in `index.html` and marked as external
+in `webpack.config`. This makes the bundling process a bit faster.
+* Modules coming from the `devtools` directory are not compiled by Babel.
