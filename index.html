@@ -39,14 +39,17 @@
     the result (grip) looks like when rendered using reps (you might want to
     change the default mode):
     <br/>
-    <button onclick="onEvaluate()">Evaluate</button>
-    <input id="expression" value="_a"></input>
+    <span>Mode:</span>
     <select id="mode">
       <option>tiny</option>
       <option selected="true">short</option>
       <option>long</option>
       <option>&lt;default&gt;</option>
     </select>
+    <br/>
+    <textarea id="expression" cols="50" rows="3">[1,2,3,4]</textarea>
+    <br/>
+    <button onclick="onEvaluate()">Evaluate</button>
   </p>
 
   <p>
@@ -66,6 +69,8 @@
     And here is the result rendered using reps:
     <div id="result"></div>
   </p>
+
+  <br/>
 
   <p>
     RDP grip packet:
