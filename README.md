@@ -59,7 +59,7 @@ Run
 ---
 1. `npm install`
 2. `webpack`
-3. Load `index.html` in Firefox
+3. Load `index.html` in Firefox (using your local web server)
 4. Follow instructions on the page
 
 Comments
